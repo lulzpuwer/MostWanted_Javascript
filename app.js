@@ -192,3 +192,16 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+
+function findPersonFamily(person){
+    // alert(
+    //     people
+    //         .filter(function (person) {
+    //             return `${person.parents}`;
+    //         })
+    //         .join("\n")
+    // );
+    let foundFamily = people.filter();
+    return foundFamily;
+}
+
