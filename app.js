@@ -195,42 +195,17 @@ function chars(input) {
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
 function findPersonFamily(person, people){
-    //variable to store person's parents array
     let personsParents = person.parents;
-    //look at all the people and compare id's with persons parents array
     let familyMembers = people.filter(function (el) {
         if (el.id === personsParents[0] || el.id == personsParents[1]) {
-           
-            return true;
-        }
-    });
+            return true;}});
     if(familyMembers.length == 0){
         alert(`${person.firstName} ${person.lastName} Family: \n
         \n
-        No parents in the system.`)
-    }
+        No parents in the system.`)}
     if(familyMembers) {
         alert(familyMembers.map(function (person) {
             return `${person.firstName} ${person.lastName}`;
             })
-            .join("\n")
-
-    )
-    }
-    
-        
-    
-    return familyMembers;
-    // return JSON.stringify(familyMembers, displayPeople(familyMembers), "/t");
-};
-
-// function displayParent(people) {
-//     if(people) {
-//     alert(people.map(function (person) {
-//             return `${person.firstName} ${person.lastName}`;
-//             })
-//             .join("\n")
-
-//     );
-//     }
-// }
+            .join("\n"))}
+    return familyMembers;};
