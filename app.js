@@ -73,7 +73,7 @@ function mainMenu(person, people) {
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
             // HINT: Look for a people-collection stringifier utility function to help
             let personFamily = findPersonFamily(person[0], people);
-            alert(personFamily);
+            // alert(personFamily);
             break;
         case "descendants":
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
@@ -131,6 +131,7 @@ function displayPeople(people) {
     );
 }
 // End of displayPeople()
+
 
 /**
  * This function will be useful for STRINGIFYING a person-object's properties
@@ -199,9 +200,37 @@ function findPersonFamily(person, people){
     //look at all the people and compare id's with persons parents array
     let familyMembers = people.filter(function (el) {
         if (el.id === personsParents[0] || el.id == personsParents[1]) {
+           
             return true;
         }
     });
+    if(familyMembers.length == 0){
+        alert(`${person.firstName} ${person.lastName} Family: \n
+        \n
+        No parents in the system.`)
+    }
+    if(familyMembers) {
+        alert(familyMembers.map(function (person) {
+            return `${person.firstName} ${person.lastName}`;
+            })
+            .join("\n")
 
-    return JSON.stringify(familyMembers);
+    )
+    }
+    
+        
+    
+    return familyMembers;
+    // return JSON.stringify(familyMembers, displayPeople(familyMembers), "/t");
 };
+
+// function displayParent(people) {
+//     if(people) {
+//     alert(people.map(function (person) {
+//             return `${person.firstName} ${person.lastName}`;
+//             })
+//             .join("\n")
+
+//     );
+//     }
+// }
