@@ -193,15 +193,15 @@ function chars(input) {
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
-function findPersonFamily(person){
-    // alert(
-    //     people
-    //         .filter(function (person) {
-    //             return `${person.parents}`;
-    //         })
-    //         .join("\n")
-    // );
-    let foundFamily = people.filter();
-    return foundFamily;
-}
+function findPersonFamily(person, people){
+    //variable to store person's parents array
+    let personsParents = person.parents;
+    //look at all the people and compare id's with persons parents array
+    let familyMembers = people.filter(function (el) {
+        if (el.id === personsParents[0] || el.id == personsParents[1]) {
+            return true;
+        }
+    });
 
+    return JSON.stringify(familyMembers.firstName);
+};
