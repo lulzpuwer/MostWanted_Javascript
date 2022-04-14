@@ -203,5 +203,5 @@ function findPersonFamily(person, people){
         }
     });
 
-    return JSON.stringify(familyMembers.firstName);
+    return JSON.stringify(familyMembers);
 };
