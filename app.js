@@ -79,6 +79,7 @@ function mainMenu(person, people) {
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
             // HINT: Review recursion lecture + demo for bonus user story
             let personDescendants = findPersonDescendants(person[0], people);
+            // let personDescendants = recursivelyFindPersonDescendants(person[0], people);
             alert(personDescendants);
             break;
         case "restart":
@@ -222,12 +223,12 @@ function findPersonFamily(person, people){
         case "eyecolor":
             let eyeColor = promptFor("What is the person's eye color? \n list of colors: \t black, blue, brown, green, hazel", chars);
             foundPeopleWithTraits = findTrait(people, eyeColor);
-            alert(foundPeopleWithTraits);
+            // alert(foundPeopleWithTraits);
             break;
         case "gender":
             let gender = promptFor("What is the person's gender? \n Genders: male, female ", chars);
             foundPeopleWithTraits = findTrait(people, gender);
-            alert(foundPeopleWithTraits);
+            // alert(foundPeopleWithTraits);
             break;
         case "height":
             let height = promptFor("What is the person's height in inches?", chars);
@@ -246,7 +247,9 @@ function findPersonFamily(person, people){
             return;
         default:
             return searchByTraits(people);
- }}
+ }
+    return foundPeopleWithTraits;
+}
     
     
 function findTrait(people, input){
@@ -260,6 +263,8 @@ function findTrait(people, input){
 
 
 function findPersonDescendants(person, people){
+    //Found First Generation
+    //Need to find second generation
     let personDescendants = person.id;
     let familyDescendants = people.filter(function (el) {
         
@@ -274,4 +279,44 @@ function findPersonDescendants(person, people){
             return `${person.firstName} ${person.lastName}`;
             })
             .join("\n"))}
+    for(person in familyDescendants){
+        let secondFamilyDescendants = people.filter(function (el) {
+        
+            if (el.parents[0] === personDescendants || el.parents[1] === personDescendants) {
+                return true;}});
+            if(secondFamilyDescendants) {
+                alert(secondFamilyDescendants.map(function (person) {
+                    return `${person.firstName} ${person.lastName}`;
+                    })
+                    .join("\n"))}
+    }
     return familyDescendants;};
+
+// function recursivelyFindPersonDescendants(person, people){
+//     let arrayOfAllParents = person.parents;
+//     let arrayOfDescendants = [people]
+
+//     if(arrayOfAllParents.length === 0){
+//         for(someone in people){
+//             if(someone.parents.cont);}
+//         return
+//     }
+
+//     for(let i = 0; i < arrayOfAllParents.length; i++){
+//         arrayOfDescendants = arrayOfDescendants.concat(
+//             recursivelyFindPersonDescendants(person, arrayOfAllParents[i])
+//         );
+//     }
+//     return displayPeople(arrayOfDescendants);
+
+
+// }
+
+//look through people collection
+//if persons id in parents -> display 
+//start at the bottom
+//display parents of the root person
+// >>> Recursively look to see the base case (The lowest ranked children)
+// >>> Once base case is found
+//display parents of the parents
+// >>> I need to check if the current persons id matches in parents id
