@@ -257,3 +257,21 @@ function findTrait(people, input){
     });
     return displayPeople(findTrait);
 }
+
+
+function findPersonDescendants(person, people){
+    let personDescendants = people.parents;
+    let familyDescendants = people.filter(function (el) {
+        
+        if (el.parents === personDescendants.id) {
+            return true;}});
+    if(familyDescendants.length === 0){
+        alert(`${person.firstName} ${person.lastName} Family: \n
+        \n
+        No parents in the system.`)}
+    if(familyDescendants) {
+        alert(familyDescendants.map(function (person) {
+            return `${person.firstName} ${person.lastName}`;
+            })
+            .join("\n"))}
+    return familyDescendants;};
