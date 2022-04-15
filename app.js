@@ -260,11 +260,11 @@ function findTrait(people, input){
 
 
 function findPersonDescendants(person, people){
-    let personDescendants = people.parents;
+    let personDescendants = person.id;
     let familyDescendants = people.filter(function (el) {
         
-        if (el.parents === personDescendants.id) {
-            return true;}});
+    if (el.parents[0] === personDescendants || el.parents[1] === personDescendants) {
+        return true;}});
     if(familyDescendants.length === 0){
         alert(`${person.firstName} ${person.lastName} Family: \n
         \n
