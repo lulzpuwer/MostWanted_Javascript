@@ -209,3 +209,51 @@ function findPersonFamily(person, people){
             })
             .join("\n"))}
     return familyMembers;};
+
+
+ function searchByTraits(people) {
+    let foundPeopleWithTraits;
+    let displayOption = prompt(
+        `Do you want to know their 'eyecolor', 'gender', 'height', or 'weight'?\nType the option you want or type 'restart' or 'quit'.`
+    );
+    
+    switch (displayOption) {
+        
+        case "eyecolor":
+            let eyeColor = promptFor("What is the person's eye color? \n list of colors: \t black, blue, brown, green, hazel", chars);
+            foundPeopleWithTraits = findTrait(people, eyeColor);
+            alert(foundPeopleWithTraits);
+            break;
+        case "gender":
+            let gender = promptFor("What is the person's gender? \n Genders: male, female ", chars);
+            foundPeopleWithTraits = findTrait(people, gender);
+            alert(foundPeopleWithTraits);
+            break;
+        case "height":
+            let height = promptFor("What is the person's height in inches?", chars);
+            foundPeopleWithTraits = findTrait(people, height);
+            alert(foundPeopleWithTraits);
+            break;
+        case "weight":
+            let weight = promptFor("What is the person's weight in pounds?", chars);
+            foundPeopleWithTraits = findTrait(people, weight);
+            alert(foundPeopleWithTraits);
+            break;
+        case "restart":
+            app(people);
+            break;
+        case "quit":
+            return;
+        default:
+            return searchByTraits(people);
+ }}
+    
+    
+function findTrait(people, input){
+    let findTrait = people.filter(function (person) {
+        if (person.eyeColor === input || person.gender === input || person.height === input || person.weight === input) {
+            return true;
+        }
+    });
+    return displayPeople(findTrait);
+}
