@@ -213,6 +213,24 @@ function findPersonFamily(person, people){
 
 
  function searchByTraits(people) {
+    let displayOption = prompt(
+        `Do you want to search by 'single trait', 'multiple traits'?\nType the option you want or type 'restart' or 'quit'.`
+    );
+    switch(displayOption){
+        case "single trait":
+            singleTrait(people);
+            break;
+        case "multiple traits":
+            multipleTraits(people);
+            break;
+        default:
+            return searchByTraits(people);
+        }
+    }
+    
+
+    
+function singleTrait(people){
     let foundPeopleWithTraits;
     let displayOption = prompt(
         `Do you want to know their 'eyecolor', 'gender', 'height', or 'weight'?\nType the option you want or type 'restart' or 'quit'.`
@@ -222,22 +240,22 @@ function findPersonFamily(person, people){
         
         case "eyecolor":
             let eyeColor = promptFor("What is the person's eye color? \n list of colors: \t black, blue, brown, green, hazel", chars);
-            foundPeopleWithTraits = findTrait(people, eyeColor);
+            foundPeopleWithTraits = displayPeople(findTrait(people, eyeColor));
             // alert(foundPeopleWithTraits);
             break;
         case "gender":
             let gender = promptFor("What is the person's gender? \n Genders: male, female ", chars);
-            foundPeopleWithTraits = findTrait(people, gender);
+            foundPeopleWithTraits = displayPeople(findTrait(people, gender));
             // alert(foundPeopleWithTraits);
             break;
         case "height":
             let height = promptFor("What is the person's height in inches?", chars);
-            foundPeopleWithTraits = findTrait(people, height);
+            foundPeopleWithTraits = displayPeople(findTrait(people, height));
             alert(foundPeopleWithTraits);
             break;
         case "weight":
             let weight = promptFor("What is the person's weight in pounds?", chars);
-            foundPeopleWithTraits = findTrait(people, weight);
+            foundPeopleWithTraits = displayPeople(findTrait(people, weight));
             alert(foundPeopleWithTraits);
             break;
         case "restart":
@@ -247,10 +265,41 @@ function findPersonFamily(person, people){
             return;
         default:
             return searchByTraits(people);
- }
-    return foundPeopleWithTraits;
+        }
+        return foundPeopleWithTraits;
 }
+function multipleTraits(people){
+
+    let eyecolor = prompt(
+        `Input 'eyecolor':\nPress enter to skip or type 'restart' or 'quit'.`
+    );
+    let gender = prompt(
+        `Input 'gender':\nPress enter to skip or type 'restart' or 'quit'.`
+    );
+    let height = prompt(
+        `Input 'height':\nPress enter to skip or type 'restart' or 'quit'.`
+    );
+    let weight = prompt(
+        `Input 'weight':\nPress enter to skip or type 'restart' or 'quit'.`
+    );
+
+    eyecolor = findTrait(people, eyecolor);
+    gender = findTrait(people, gender);
+    height = findTrait(people, height);
+    weight = findTrait(people, weight);
     
+    let foundPeopleWithTraits = people.filter(function(el){
+
+        if(el.eyeColor === eyecolor[0].eyeColor && el.gender === gender[0].gender && el.height === height[0].height && el.weight === weight[0].weight){
+            return true;
+        }
+
+    })
+
+    return displayPeople(foundPeopleWithTraits);
+
+}
+
     
 function findTrait(people, input){
     let findTrait = people.filter(function (person) {
@@ -258,7 +307,7 @@ function findTrait(people, input){
             return true;
         }
     });
-    return displayPeople(findTrait);
+    return findTrait;
 }
 
 
