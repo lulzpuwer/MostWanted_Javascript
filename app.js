@@ -241,22 +241,18 @@ function singleTrait(people){
         case "eyecolor":
             let eyeColor = promptFor("What is the person's eye color? \n list of colors: \t black, blue, brown, green, hazel", chars);
             foundPeopleWithTraits = displayPeople(findTrait(people, eyeColor));
-            // alert(foundPeopleWithTraits);
             break;
         case "gender":
             let gender = promptFor("What is the person's gender? \n Genders: male, female ", chars);
             foundPeopleWithTraits = displayPeople(findTrait(people, gender));
-            // alert(foundPeopleWithTraits);
             break;
         case "height":
             let height = promptFor("What is the person's height in inches?", chars);
             foundPeopleWithTraits = displayPeople(findTrait(people, height));
-            alert(foundPeopleWithTraits);
             break;
         case "weight":
             let weight = promptFor("What is the person's weight in pounds?", chars);
             foundPeopleWithTraits = displayPeople(findTrait(people, weight));
-            alert(foundPeopleWithTraits);
             break;
         case "restart":
             app(people);
@@ -287,20 +283,19 @@ function multipleTraits(people){
     gender = findTrait(people, gender);
     height = findTrait(people, height);
     weight = findTrait(people, weight);
-    
-    let foundPeopleWithTraits = people.filter(function(el){
+    let foundPeopleWithTraits = people;
+    if(eyecolor[0] !== undefined){foundPeopleWithTraits = foundPeopleWithTraits.filter(function(el){if(el.eyeColor === eyecolor[0].eyeColor){return true;}})}
+    if(gender[0] !== undefined){foundPeopleWithTraits = foundPeopleWithTraits.filter(function(el){if(el.gender === gender[0].gender){return true;}})}
+    if(height[0] !== undefined){foundPeopleWithTraits = foundPeopleWithTraits.filter(function(el){if(el.height === height[0].height){return true;}})}
+    if(weight[0] !== undefined){foundPeopleWithTraits = foundPeopleWithTraits.filter(function(el){if(el.weight === weight[0].weight){return true;}})}
 
-        if(el.eyeColor === eyecolor[0].eyeColor && el.gender === gender[0].gender && el.height === height[0].height && el.weight === weight[0].weight){
-            return true;
-        }
-
-    })
 
     return displayPeople(foundPeopleWithTraits);
 
 }
 
-    
+
+
 function findTrait(people, input){
     let findTrait = people.filter(function (person) {
         if (person.eyeColor === input || person.gender === input || person.height === input || person.weight === input) {
