@@ -268,55 +268,32 @@ function findPersonDescendants(person, people){
     let personDescendants = person.id;
     let familyDescendants = people.filter(function (el) {
         
-    if (el.parents[0] === personDescendants || el.parents[1] === personDescendants) {
+    if (el.parents.includes(personDescendants)) {
         return true;}});
+    
+    let familySecondaryDescendants = familyDescendants.filter(function (el){
+        let currentGeneration = people.filter(function(el2){
+            if(el2.parents.includes(el.id)){
+                return true}
+        })
+        return currentGeneration;
+    })
+
+    
+    familyDescendants = Array.prototype.push.apply(familyDescendants, familySecondaryDescendants);
+    
+
     if(familyDescendants.length === 0){
         alert(`${person.firstName} ${person.lastName} Family: \n
         \n
         No parents in the system.`)}
+
     if(familyDescendants) {
         alert(familyDescendants.map(function (person) {
             return `${person.firstName} ${person.lastName}`;
             })
             .join("\n"))}
-    for(person in familyDescendants){
-        let secondFamilyDescendants = people.filter(function (el) {
-        
-            if (el.parents[0] === personDescendants || el.parents[1] === personDescendants) {
-                return true;}});
-            if(secondFamilyDescendants) {
-                alert(secondFamilyDescendants.map(function (person) {
-                    return `${person.firstName} ${person.lastName}`;
-                    })
-                    .join("\n"))}
-    }
+   
+
     return familyDescendants;};
 
-// function recursivelyFindPersonDescendants(person, people){
-//     let arrayOfAllParents = person.parents;
-//     let arrayOfDescendants = [people]
-
-//     if(arrayOfAllParents.length === 0){
-//         for(someone in people){
-//             if(someone.parents.cont);}
-//         return
-//     }
-
-//     for(let i = 0; i < arrayOfAllParents.length; i++){
-//         arrayOfDescendants = arrayOfDescendants.concat(
-//             recursivelyFindPersonDescendants(person, arrayOfAllParents[i])
-//         );
-//     }
-//     return displayPeople(arrayOfDescendants);
-
-
-// }
-
-//look through people collection
-//if persons id in parents -> display 
-//start at the bottom
-//display parents of the root person
-// >>> Recursively look to see the base case (The lowest ranked children)
-// >>> Once base case is found
-//display parents of the parents
-// >>> I need to check if the current persons id matches in parents id
