@@ -132,7 +132,15 @@ function displayPeople(people) {
     );
 }
 // End of displayPeople()
-
+function displayPeopleNonAlert(people) {
+    
+       let displayPeople= people
+            .map(function (person) {
+                return `${person.firstName} ${person.lastName}`;
+            })
+            .join("\n");
+        return displayPeople
+}
 
 /**
  * This function will be useful for STRINGIFYING a person-object's properties
@@ -196,21 +204,54 @@ function chars(input) {
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
 function findPersonFamily(person, people){
-    let personsParents = person.parents;
-    let familyMembers = people.filter(function (el) {
-        if (el.id === personsParents[0] || el.id == personsParents[1]) {
-            return true;}});
-    if(familyMembers.length == 0){
-        alert(`${person.firstName} ${person.lastName} Family: \n
+    // let personsParents = person.parents;
+    // let familyMembers = people.filter(function (el) {
+    //     if (el.id === personsParents[0] || el.id == personsParents[1]) {
+    //         return true;}});
+    let foundParents = displayPeopleNonAlert(findPersonsParents(person, people));
+    let foundSiblings = displayPeopleNonAlert(findPersonSiblings(person, people));
+    let foundSpouse = displayPeopleNonAlert(findPersonsSpouse(person,people));
+    
+    alert(`${person.firstName} ${person.lastName} Family: \n
         \n
-        No parents in the system.`)}
-    if(familyMembers) {
-        alert(familyMembers.map(function (person) {
-            return `${person.firstName} ${person.lastName}`;
-            })
-            .join("\n"))}
-    return familyMembers;};
+        Parents:\n
+        ${foundParents}\n\n
+        Siblings:\n
+        ${foundSiblings}\n\n
+        Current Spouse:\n
+        ${foundSpouse}`);}
+    
+  
 
+function findPersonsParents(person,people){
+    let personParents = people.filter(function(el){
+        if(person.parents.includes(el.id)){
+            return true;
+        }
+        
+    })
+    return personParents
+}
+function findPersonsSpouse(person,people){
+    let personsSpouse = people.filter(function(el){
+        if(person.currentSpouse === el.id){
+            return true;
+        }
+        
+    })
+    return personsSpouse
+}
+function findPersonSiblings(person, people){
+    let personsParents = person.parents;
+    let personsSiblings = people.filter(function(el){
+        if(personsParents.includes(el.parents[0]||el.parents[1])){
+            return true;
+        }
+        
+    })
+    return personsSiblings
+    
+}
 
  function searchByTraits(people) {
     let displayOption = prompt(
@@ -241,22 +282,18 @@ function singleTrait(people){
         case "eyecolor":
             let eyeColor = promptFor("What is the person's eye color? \n list of colors: \t black, blue, brown, green, hazel", chars);
             foundPeopleWithTraits = displayPeople(findTrait(people, eyeColor));
-            // alert(foundPeopleWithTraits);
             break;
         case "gender":
             let gender = promptFor("What is the person's gender? \n Genders: male, female ", chars);
             foundPeopleWithTraits = displayPeople(findTrait(people, gender));
-            // alert(foundPeopleWithTraits);
             break;
         case "height":
             let height = promptFor("What is the person's height in inches?", chars);
             foundPeopleWithTraits = displayPeople(findTrait(people, height));
-            alert(foundPeopleWithTraits);
             break;
         case "weight":
             let weight = promptFor("What is the person's weight in pounds?", chars);
             foundPeopleWithTraits = displayPeople(findTrait(people, weight));
-            alert(foundPeopleWithTraits);
             break;
         case "restart":
             app(people);
@@ -287,20 +324,19 @@ function multipleTraits(people){
     gender = findTrait(people, gender);
     height = findTrait(people, height);
     weight = findTrait(people, weight);
-    
-    let foundPeopleWithTraits = people.filter(function(el){
+    let foundPeopleWithTraits = people;
+    if(eyecolor[0] !== undefined){foundPeopleWithTraits = foundPeopleWithTraits.filter(function(el){if(el.eyeColor === eyecolor[0].eyeColor){return true;}})}
+    if(gender[0] !== undefined){foundPeopleWithTraits = foundPeopleWithTraits.filter(function(el){if(el.gender === gender[0].gender){return true;}})}
+    if(height[0] !== undefined){foundPeopleWithTraits = foundPeopleWithTraits.filter(function(el){if(el.height === height[0].height){return true;}})}
+    if(weight[0] !== undefined){foundPeopleWithTraits = foundPeopleWithTraits.filter(function(el){if(el.weight === weight[0].weight){return true;}})}
 
-        if(el.eyeColor === eyecolor[0].eyeColor && el.gender === gender[0].gender && el.height === height[0].height && el.weight === weight[0].weight){
-            return true;
-        }
-
-    })
 
     return displayPeople(foundPeopleWithTraits);
 
 }
 
-    
+
+
 function findTrait(people, input){
     let findTrait = people.filter(function (person) {
         if (person.eyeColor === input || person.gender === input || person.height === input || person.weight === input) {
@@ -328,6 +364,7 @@ function findPersonDescendants(person, people){
         return currentGeneration;
     })
 
+
     
     familyDescendants = Array.prototype.push.apply(familyDescendants, familySecondaryDescendants);
     
@@ -345,4 +382,3 @@ function findPersonDescendants(person, people){
    
 
     return familyDescendants;};
-
